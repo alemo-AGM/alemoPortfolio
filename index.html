@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexis Moselina — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #12110f;
+      --bg2:       #1a1915;
+      --bg3:       #221f1a;
+      --surface:   #2c2820;
+      --border:    #3d3830;
+      --moss:      #5c7a4e;
+      --moss-lt:   #7fa06e;
+      --clay:      #b5683a;
+      --clay-lt:   #d4845a;
+      --sand:      #c9b99a;
+      --sand-lt:   #e0d3be;
+      --stone:     #8a8070;
+      --text:      #ddd5c8;
+      --text-dim:  #8a8070;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── Grain texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(18,17,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--sand-lt);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--clay-lt); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 30%, rgba(92,122,78,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 15% 70%, rgba(181,104,58,0.1) 0%, transparent 65%),
+        var(--bg);
+      z-index: 0;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--moss-lt);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--sand-lt);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--clay-lt);
+    }
+
+    .hero-tagline {
+      font-size: 1.15rem;
+      color: var(--sand);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--clay);
+      color: #fff;
+      border: 1px solid var(--clay);
+    }
+
+    .btn-primary:hover {
+      background: var(--clay-lt);
+      border-color: var(--clay-lt);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--sand);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--stone);
+      color: var(--sand-lt);
+    }
+
+    /* ── Sections ── */
+    section {
+      padding: 7rem 3rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--moss-lt);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--sand-lt);
+      margin-bottom: 3rem;
+      line-height: 1.15;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--clay);
+      margin-bottom: 3rem;
+    }
+
+    /* ── About / Bio ── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-sidebar {}
+
+    .skill-group { margin-bottom: 2.5rem; }
+
+    .skill-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clay-lt);
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--sand);
+      background: var(--surface);
+    }
+
+    /* ── Experience ── */
+    #experience { background: var(--bg); }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--moss);
+      transform: translateX(-3px);
+    }
+
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-role {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--sand-lt);
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-company {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--clay-lt);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-desc {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── About photo ── */
+    .about-photo-wrap {
+      width: 180px;
+      height: 180px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      flex-shrink: 0;
+    }
+
+    .about-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+    }
+
+    .about-photo-wrap:hover img { filter: grayscale(0%); }
+
+    .about-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--stone);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* ── Projects ── */
+    #projects { background: var(--bg3); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0;
+      transition: border-color 0.25s, transform 0.25s;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .project-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%) brightness(0.9);
+      transition: filter 0.35s, transform 0.35s;
+    }
+
+    .project-card:hover .project-img img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.03);
+    }
+
+    .project-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--stone);
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--bg3),
+        var(--bg3) 6px,
+        var(--surface) 6px,
+        var(--surface) 12px
+      );
+    }
+
+    .project-body {
+      padding: 1.5rem 1.75rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .project-card:hover {
+      border-color: var(--moss);
+      transform: translateY(-4px);
+    }
+
+    .project-card:hover .project-body { background: transparent; }
+
+    .project-num {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--sand-lt);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .project-stack {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .stack-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--moss-lt);
+      background: rgba(92,122,78,0.12);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .project-link:hover { color: var(--clay-lt); }
+
+    /* ── Writing / Blog ── */
+    #writing { background: var(--bg2); }
+
+    .posts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .post-item:first-child { border-top: 1px solid var(--border); }
+
+    .post-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .post-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--sand);
+      transition: color 0.2s;
+    }
+
+    .post-item:hover .post-title { color: var(--clay-lt); }
+
+    .post-arrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--stone);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .post-item:hover .post-arrow {
+      color: var(--clay-lt);
+      transform: translateX(4px);
+    }
+
+    /* ── Contact ── */
+    #contact {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    #contact .section-inner {
+      max-width: 600px;
+    }
+
+    #contact .section-title { margin-bottom: 1rem; }
+
+    .contact-sub {
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--clay-lt);
+      border-color: var(--clay-lt);
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--stone);
+    }
+
+    /* ── Fade-in on scroll ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      #hero { padding: 0 1.5rem 5rem; }
+      section { padding: 5rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .post-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .post-date { font-size: 0.68rem; }
+      .post-arrow { display: none; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════ NAV ════════════════════ -->
+  <nav>
+    <a href="#hero" class="nav-logo">Alexis Moselina</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════════════ HERO ════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ High School Junior Based in the Bay Area</p>
+      <h1 class="hero-name">Alexis<br><em>Moselina</em></h1>
+      <p class="hero-tagline">
+        Just a high schooler who does some programming on the side. A lot of random stuff. 
+        Electrical Lead and Executive Board member for Pirate Robolution FRC 5430
+      </p>
+      <div class="hero-links">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+        <a href="https://github.com/yourusername" class="btn btn-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ ABOUT ════════════════════ -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label reveal">About</p>
+      <h2 class="section-title reveal">A little about me</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <!-- Profile photo: replace src with your image path, e.g. src="assets/photo.jpg" -->
+          <div class="about-photo-wrap">
+            <img src="imgs/pfp2026.jpg" alt="Alexis Moselina"
+              onerror="this.parentElement.innerHTML='<div class=\'about-photo-placeholder\'>your photo here</div>'" />
+          </div>
+          <p>
+            Hi, I'm Alexis! I'm the MESA President and AVID VP at my high school. 
+            I'm also an Eboard Member, Electrical Lead, and Outreach Lead for FRC 5430.
+          </p>
+          <p>
+            I grew up taking apart hardware in my bedroom--leading me 
+            from Arduinos to Computer Vision to Reinforcement Learning. 
+            And lately, I've been absolutely obsessed with Quantum Computing.
+          </p>
+          <p>
+            But outside of tech, I spend a lot of my time playing
+            piano and guitar. I'm still looking into the world of DAWs
+            and crafting guitar pedals.
+          </p>
+          <br />
+        </div>
+
+        <div class="about-sidebar reveal">
+          <div class="skill-group">
+            <p class="skill-group-title">Languages</p>
+            <div class="skill-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Java</span>
+              <span class="tag">C++ [Arduino]</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-title">Frameworks & Tools</p>
+            <div class="skill-tags">
+              <span class="tag">Tensorflow</span>
+              <span class="tag">Pytorch</span>
+              <span class="tag">Docker</span>
+              <span class="tag">AWS</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-title">Other Tech Skills</p>
+            <div class="skill-tags">
+              <span class="tag">OnShape</span>
+              <span class="tag">3D Printing</span>
+              <span class="tag">KiCAD</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-title">Interests</p>
+            <div class="skill-tags">
+              <span class="tag">ML/RL/AI</span>
+              <span class="tag">Robotics</span>
+              <span class="tag">Electronics</span>
+              <span class="tag">Quantum Computing</span>
+              <span class="tag">Audio Tech</span>
+              <span class="tag">RaspberryPi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ EXPERIENCE ════════════════════ -->
+  <section id="experience">
+    <div class="section-inner">
+      <p class="section-label reveal">Experience</p>
+      <h2 class="section-title reveal">What I've been up to</h2>
+      <div class="timeline reveal">
+
+        <div class="timeline-item">
+          <p class="timeline-date">2025 – Present</p>
+          <p class="timeline-role">Executive Board Member</p>
+          <p class="timeline-company">FRC 5430 · Pirate Robolution</p>
+          <p class="timeline-desc">From wiring up the robot to creating logistics for outreach events, 
+            I spend a lot of time supporting my robotics team.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="timeline-date">2024 – Present</p>
+          <p class="timeline-role">Extra Long Passion Projects</p>
+          <p class="timeline-company">Small Things Here and There As Well</p>
+          <p class="timeline-desc">Lately, I've been working on a really cool mecanum bot.
+            However, in previous years, I've done custom face detection programs and IOT projects.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="timeline-date">2025 – Present</p>
+          <p class="timeline-role">Certifications Crunch</p>
+          <p class="timeline-company">Programming Certifications</p>
+          <p class="timeline-desc">
+            Attempting to align with needs of the current workforce,
+          I've been attempting to earn many certifications. From PCEP to AWS to Google.</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="timeline-date">2020 – 2023</p>
+          <p class="timeline-role">Beginnings</p>
+          <p class="timeline-company">Youtube Warrior · Total Beginner</p>
+          <p class="timeline-desc">I spent most of middle school learning just about
+            anything I could get my hands on through online tutorials--from basic Python
+            to Pandas to MatPlotLib.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ PROJECTS ════════════════════ -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label reveal">SideQuests</p>
+      <h2 class="section-title reveal">Selected projects</h2>
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <a href="projectSubpages/project-1.html" class="project-card reveal">
+          <!-- Replace src with your screenshot, e.g. src="assets/project1.png" -->
+          <div class="project-img">
+            <img src="imgs\parrotV2.jpg" alt="Project Name One screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">01</p>
+            <h3 class="project-title">Gesture Controlled Animatronic</h3>
+            <p class="project-desc">Using OpenCV / Computer Vision to control servos on an Animatronic Parrot. 
+              It's bridging Python and Arduino.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">Arduino / C++</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="projectSubpages/project-2.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\customLED.JPG" alt="Project Name Two screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">02</p>
+            <h3 class="project-title">Customized LED Patterns</h3>
+            <p class="project-desc">This was my project for the 2026 APCSP Create Task. Users can create their custom LED patterns through a keypad.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">Arduino / C++</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Demo ↗</a>
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 3 -->
+        <a href="projectSubpages/project-3.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\mecanum.jpg" alt="Project Name Three screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">03</p>
+            <h3 class="project-title">Mini Mecanum Drive Bot</h3>
+            <p class="project-desc">Arduino-based and FTC-inspired mecanum drive operating from L298N motor controllers and a PS4 Controller.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Arduino / C++</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 4 -->
+        <a href="projectSubpages/project-4.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\arrayBoardGame.JPG" alt="Project Name Four screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">04</p>
+            <h3 class="project-title">2D Array Board Game</h3>
+            <p class="project-desc">This was a small APCS project that utilized arrays to generate responses.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Java</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 5 -->
+        <a href="projectSubpages/project-5.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\apPhysPic.jpg" alt="Project Name Five screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">05</p>
+            <h3 class="project-title">Qubyte LED Simulation</h3>
+            <p class="project-desc">This was my AP Physics 1 final where I visualized the 
+              concept of superposition in Quantum Computing through LEDs. It used 4 shift registers and an Arduino Nano to display 32 LEDs as 4 bytes.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Arduino / C++</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 6 -->
+        <a href="projectSubpages/project-6.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\sorting.jpg" alt="Project Name Six screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">06</p>
+            <h3 class="project-title">Different Sorts</h3>
+            <p class="project-desc">This was an APCS assignment where I developed merge and bubble sort algorithms.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Java</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 7 -->
+        <a href="projectSubpages/project-7.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\arrayMiniProject.JPG" alt="Project Name Seven screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">07</p>
+            <h3 class="project-title">ArrayList Mini Project</h3>
+            <p class="project-desc">This was an APCS project that utilized Arraylists to perform specific functions.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Java</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 8 -->
+        <a href="projectSubpages/project-8.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\microbit.JPG" alt="Project Name Eight screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">08</p>
+            <h3 class="project-title">Microbit Reflex Game</h3>
+            <p class="project-desc">This was a microbit game that recorded how quickly you responded to a visual cue.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 9 — optional, duplicate/remove as needed -->
+        <a href="projectSubpages/project-9.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="imgs\colabDetect.JPG" alt="Project Name Nine screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">09</p>
+            <h3 class="project-title">Custom Face Recogniion Model</h3>
+            <p class="project-desc">This was a custom YOLO V5 Model that used Google Colab and Python to generate and apply a ML/Computer Vision model.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">Google Colab</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 10 — optional 
+        <a href="projectSubpages/project-10.html" class="project-card reveal">
+          <div class="project-img">
+            <img src="" alt="Project Name Ten screenshot"
+              onerror="this.parentElement.innerHTML='<div class=\'project-img-placeholder\'>screenshot</div>'" />
+          </div>
+          <div class="project-body">
+            <p class="project-num">10</p>
+            <h3 class="project-title">Older Mini Projects</h3>
+            <p class="project-desc">A one or two sentence description of what this project does, the problem it solves, and why it's interesting or impactful.</p>
+            <div class="project-footer">
+              <div class="project-stack">
+                <span class="stack-tag">Svelte</span>
+                <span class="stack-tag">D3.js</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Demo ↗</a>
+                <a href="#" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </a>-->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ WRITING ════════════════════ -
+  <section id="writing">
+    <div class="section-inner">
+      <p class="section-label reveal">Writing</p>
+      <h2 class="section-title reveal">Thoughts & posts</h2>
+      <div class="posts-list reveal">
+
+        <a href="#" class="post-item">
+          <span class="post-date">Dec 2024</span>
+          <span class="post-title">The title of your most recent article or blog post</span>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a href="#" class="post-item">
+          <span class="post-date">Oct 2024</span>
+          <span class="post-title">Another post title goes here — keep them descriptive</span>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a href="#" class="post-item">
+          <span class="post-date">Aug 2024</span>
+          <span class="post-title">A third writing sample, essay, or technical post</span>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a href="#" class="post-item">
+          <span class="post-date">May 2024</span>
+          <span class="post-title">Fourth post or remove this row if you have fewer pieces</span>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a href="#" class="post-item">
+          <span class="post-date">Jan 2024</span>
+          <span class="post-title">Fifth post — link to your blog, Medium, or Substack</span>
+          <span class="post-arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ════════════════════ CONTACT ════════════════════ -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label reveal">Contact</p>
+      <h2 class="section-title reveal">Let's talk</h2>
+      <p class="contact-sub reveal">
+        Feel free to reach out to me regardless of the reason. I'm always looking
+         forward to networking with new people!
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:alexmose154@gmail.com" class="contact-link">Email</a>
+        <a href="https://github.com/alemo-AGM" class="contact-link" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/alexis-moselina-2490402b2/" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://docs.google.com/document/d/1zin00_NP-VTYbPDUXMYfwCYJkvI9xYE5lUe17Li5Hqs/edit?usp=sharing" class="contact-link" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ FOOTER ════════════════════ -->
+  <footer>
+    <span>© <span id="year"></span> Alexis Moselina</span>
+    <span>Built with HTML & CSS · Hosted on GitHub Pages</span>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
